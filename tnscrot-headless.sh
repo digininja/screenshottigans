@@ -1,22 +1,15 @@
 #!/bin/bash
-
-# Have to start up an xvfb session in a different window with
-#
-# Xvfb :99
-#
-# The display number given there needs to match the one in the DISPLAY line below
-
-if [ $# -eq 0 ]
-  then
-    echo "use: $0 ip_address"
-    exit 0;
-
+if [ $# -eq 0 ] 
+then
+	echo "use: $0 ip_address"
+	exit 0;
 fi
+
 mkdir -p screenshots/telnet/raw/
 mkdir -p screenshots/telnet/jpg/
 mkdir -p screenshots/telnet/text/
 echo "screenshooting $1"
-CMD="telnet localhost 8081 2>&1 | tee screenshots/telnet/text/$1.txt"
+CMD="telnet $1 2>&1 | tee screenshots/telnet/text/$1.txt"
 #CMD="telnet $1 2>&1 | tee screenshots/telnet/text/$1.txt"
 temp_file=$(mktemp)
 echo $CMD > $temp_file
